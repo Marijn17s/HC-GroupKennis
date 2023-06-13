@@ -12,14 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HCGroupKennis.Classes;
 
 namespace HCGroupKennis
 {
     public partial class MainWindow : Window
     {
+        private Groups.MainGroupType SelectedMainGroup;
+
         public MainWindow()
         {
             InitializeComponent();
+            MainGroupComboBox.ItemsSource = Enum.GetValues(typeof(Groups.MainGroupType));
+            SubGroupComboBox.ItemsSource = Enum.GetValues(typeof(Groups.SubGroupType));
         }
     }
 }
