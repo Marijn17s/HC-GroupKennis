@@ -46,7 +46,7 @@ namespace HCGroupKennis
             new CvItem("Eigen website opgezet", Groups.MainGroupType.Fullstack, Groups.SubGroupType.Web, 2021),
             new CvItem("Geëperimenteerd met Adobe Premiere Pro", Groups.MainGroupType.Design, Groups.SubGroupType.PremierePro, 2021),
             new CvItem("Op school gestart met HTML, CSS, Javascript", Groups.MainGroupType.Frontend, Groups.SubGroupType.Web, 2021),
-            new CvItem("Op school gestart met basis C# in WPF", Groups.MainGroupType.Frontend, Groups.SubGroupType.CSharp, 2021),
+            new CvItem("Op school gestart met basis C# in WPF", Groups.MainGroupType.Fullstack, Groups.SubGroupType.CSharp, 2021),
             new CvItem("Geleerd responsive designs te maken in WPF", Groups.MainGroupType.Frontend, Groups.SubGroupType.CSharp, 2021),
             new CvItem("Geleerd responsive designs te maken in HTML, CSS", Groups.MainGroupType.Frontend, Groups.SubGroupType.Web, 2021),
             new CvItem("Op school gestart met MySQL", Groups.MainGroupType.Overig, Groups.SubGroupType.DatabaseBeheer, 2021),
@@ -163,21 +163,29 @@ namespace HCGroupKennis
             ApplyFilters();
         }
 
-        private void ResetMainGroupFilter_OnClick(object sender, RoutedEventArgs e)
+        private void ResetMainGroupFilter_OnClick(object? sender, RoutedEventArgs e)
         {
             MainGroupComboBox.SelectedIndex = -1;
             ApplyFilters();
         }
 
-        private void ResetSubGroupFilter_OnClick(object sender, RoutedEventArgs e)
+        private void ResetSubGroupFilter_OnClick(object? sender, RoutedEventArgs e)
         {
             SubGroupComboBox.SelectedIndex = -1;
             ApplyFilters();
         }
 
+        private void ResetYearFilter_OnClick(object? sender, RoutedEventArgs e)
+        {
+            // Reset all filters by year.
+            YearTextBox.Text = string.Empty;
+            YearFilter = 0;
+            ApplyFilters();
+        }
+
         #region Validation
 
-        private void YearFilter_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void YearFilter_OnTextChanged(object? sender, TextChangedEventArgs e)
         {
             // Make sure the textbox is not empty and has 4 characters.
             if (YearTextBox is null || YearTextBox.Text.Equals(string.Empty))
@@ -192,7 +200,7 @@ namespace HCGroupKennis
             e.Handled = e.Text is null || !e.Text.All(char.IsDigit);
         }
 
-        private void YearTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void YearTextBox_PreviewKeyDown(object? sender, KeyEventArgs e)
         {
             // Make sure there are no spaces in the textbox.
             e.Handled = e.Key == Key.Space ? true : false;
@@ -200,7 +208,7 @@ namespace HCGroupKennis
             //e.Handled = e.Key == Key.Space;
         }
 
-        private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void HandleCanExecute(object? sender, CanExecuteRoutedEventArgs e)
         {
             // Disable pasting invalid characters into the textbox.
             if (e.Command == ApplicationCommands.Paste) {
@@ -210,14 +218,6 @@ namespace HCGroupKennis
         }
 
         #endregion
-
-        private void ResetYearFilter_OnClick(object sender, RoutedEventArgs e)
-        {
-            // Reset all filters by year.
-            YearTextBox.Text = string.Empty;
-            YearFilter = 0;
-            ApplyFilters();
-        }
 
         #endregion
     }
