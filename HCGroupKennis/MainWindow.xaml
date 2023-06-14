@@ -39,6 +39,7 @@
                 <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Center">
                     <Label Content="Filter op jaar" Foreground="White" HorizontalContentAlignment="Center"/>
                     <TextBox Grid.Row="2" Name="YearTextBox" PreviewTextInput="YearTextBox_PreviewTextInput" PreviewKeyDown="YearTextBox_PreviewKeyDown" TextChanged="YearFilter_OnTextChanged" CommandManager.PreviewCanExecute="HandleCanExecute" MaxLength="4" VerticalAlignment="Center" Width="150"/>
+                    <Button Name="ResetYearFilter" Click="ResetYearFilter_OnClick" Content="Reset" Margin="0 2 0 0" MaxWidth="100" MinHeight="25"/>
                 </StackPanel>
             </Grid>
         </Grid>

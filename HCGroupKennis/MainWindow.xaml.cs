@@ -49,6 +49,7 @@ namespace HCGroupKennis
         private readonly List<CvItem> AllCvItems = new List<CvItem>()
         {
             new CvItem("test1", Groups.MainGroupType.Backend, Groups.SubGroupType.Miscellaneous, 2020, 8.5),
+            new CvItem("test1(2)", Groups.MainGroupType.Backend, Groups.SubGroupType.Miscellaneous, 2019, 8.5),
             new CvItem("test2", Groups.MainGroupType.Frontend, Groups.SubGroupType.CSharp, 2020, 7.5),
             new CvItem("test3", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2020, 9.5),
             new CvItem("test4", Groups.MainGroupType.Design, Groups.SubGroupType.Photoshop, 2020, 6.5),
@@ -56,6 +57,10 @@ namespace HCGroupKennis
             new CvItem("test6", Groups.MainGroupType.Design, Groups.SubGroupType.PremierePro, 2020, 6.5),
             new CvItem("test7", Groups.MainGroupType.Design, Groups.SubGroupType.Lightroom, 2020, 8.0),
             new CvItem("test8", Groups.MainGroupType.Miscellaneous, Groups.SubGroupType.MySql, 2020, 8.0),
+            new CvItem("test9", Groups.MainGroupType.Frontend, Groups.SubGroupType.Css, 2020, 8.0),
+            new CvItem("test10", Groups.MainGroupType.Frontend, Groups.SubGroupType.Javascript, 2019, 8.0),
+            new CvItem("test11", Groups.MainGroupType.Frontend, Groups.SubGroupType.Html, 2019, 8.0),
+            new CvItem("test10", Groups.MainGroupType.Frontend, Groups.SubGroupType.Php, 2020, 8.0),
         };
 
         private List<CvItem> FilteredCvItems = new List<CvItem>();
@@ -63,25 +68,19 @@ namespace HCGroupKennis
         #endregion
 
         #region Properties
-        
+
+        private int YearFilter { get; set; }
+
         private Groups.MainGroupType selectedMainGroup;
         internal Groups.MainGroupType SelectedMainGroup {
             get => selectedMainGroup;
-            set
-            {
-                selectedMainGroup = value;
-                OnPropertyChanged();
-            }
+            set => selectedMainGroup = value;
         }
 
         private Groups.SubGroupType selectedSubGroup;
         internal Groups.SubGroupType SelectedSubGroup {
             get => selectedSubGroup;
-            set
-            {
-                selectedSubGroup = value;
-                OnPropertyChanged();
-            }
+            set => selectedSubGroup = value;
         }
 
         #endregion
@@ -111,19 +110,50 @@ namespace HCGroupKennis
                 SelectedSubGroup = (Groups.SubGroupType)Enum.Parse(typeof(Groups.SubGroupType), SubGroupComboBox?.SelectedItem.ToString());
             if (MainGroupComboBox is null || SubGroupComboBox is null || AllCvItems is null || FilteredCvItems is null)
                 return;
+
             // No filters applied
-            if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex == -1)
+            if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex == -1 && YearFilter.ToString().Length != 4)
                 FilteredCvItems = AllCvItems;
+
+            // Only Year filter applied
+            if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex == -1 && YearFilter.ToString().Length == 4)
+                FilteredCvItems = AllCvItems
+                    .Where(item => item.Year.Equals(YearFilter)).ToList();
+
             // Only MainGroup filter applied
-            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex == -1)
-                FilteredCvItems = AllCvItems.Where(item => item.MainGroup == SelectedMainGroup).ToList();
+            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex == -1 && YearFilter.ToString().Length != 4)
+                FilteredCvItems = AllCvItems
+                    .Where(item => item.MainGroup == SelectedMainGroup).ToList();
+
+            // MainGroup and Year filter applied
+            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex == -1 && YearFilter.ToString().Length == 4)
+                FilteredCvItems = AllCvItems
+                    .Where(item => item.MainGroup == SelectedMainGroup)
+                    .Where(item => item.Year.Equals(YearFilter)).ToList();
+
             // Only SubGroup filter applied
-            else if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex != -1)
-                FilteredCvItems = AllCvItems.Where(item => item.SubGroup == SelectedSubGroup).ToList();
-            // Both filters applied
-            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex != -1)
-                FilteredCvItems = AllCvItems.Where(item => item.MainGroup == SelectedMainGroup)
+            else if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex != -1 && YearFilter.ToString().Length != 4)
+                FilteredCvItems = AllCvItems
                     .Where(item => item.SubGroup == SelectedSubGroup).ToList();
+
+            // SubGroup and Year filter applied
+            else if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex != -1 && YearFilter.ToString().Length == 4)
+                FilteredCvItems = AllCvItems
+                    .Where(item => item.SubGroup == SelectedSubGroup)
+                    .Where(item => item.Year.Equals(YearFilter)).ToList();
+
+            // MainGroup and SubGroup filters applied
+            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex != -1 && YearFilter.ToString().Length != 4)
+                FilteredCvItems = AllCvItems
+                    .Where(item => item.MainGroup == SelectedMainGroup)
+                    .Where(item => item.SubGroup == SelectedSubGroup).ToList();
+
+            // MainGroup, SubGroup and Year filters applied
+            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex != -1 && YearFilter.ToString().Length == 4)
+                FilteredCvItems = AllCvItems
+                    .Where(item => item.MainGroup == SelectedMainGroup)
+                    .Where(item => item.SubGroup == SelectedSubGroup)
+                    .Where(item => item.Year.Equals(YearFilter)).ToList();
 
             // Fill the DataGrid with only the filtered items.
             CvDataGrid.ItemsSource = FilteredCvItems;
@@ -134,8 +164,9 @@ namespace HCGroupKennis
         private void YearFilter_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             // Make sure the textbox is not empty and has 4 characters.
-            if (YearTextBox is null || YearTextBox.Text.Equals(string.Empty) || YearTextBox.Text.Length != 4)
+            if (YearTextBox is null || YearTextBox.Text.Equals(string.Empty))
                 return;
+            YearFilter = int.Parse(YearTextBox.Text);
             ApplyFilters();
         }
 
@@ -158,6 +189,14 @@ namespace HCGroupKennis
                 e.CanExecute = false;
                 e.Handled = true;
             }
+        }
+
+        private void ResetYearFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            // Reset all filters by year.
+            YearTextBox.Text = string.Empty;
+            YearFilter = 0;
+            ApplyFilters();
         }
     }
 }
