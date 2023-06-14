@@ -21,6 +21,7 @@ namespace HCGroupKennis.Classes
             Photoshop,
             Lightroom,
             AfterEffects,
+            PremierePro,
             Html,
             Css,
             Javascript,

@@ -48,7 +48,14 @@ namespace HCGroupKennis
 
         private readonly List<CvItem> AllCvItems = new List<CvItem>()
         {
-            new CvItem("testNaam", Groups.MainGroupType.Backend, Groups.SubGroupType.Miscellaneous, 2020, 8.5),
+            new CvItem("test1", Groups.MainGroupType.Backend, Groups.SubGroupType.Miscellaneous, 2020, 8.5),
+            new CvItem("test2", Groups.MainGroupType.Frontend, Groups.SubGroupType.CSharp, 2020, 7.5),
+            new CvItem("test3", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2020, 9.5),
+            new CvItem("test4", Groups.MainGroupType.Design, Groups.SubGroupType.Photoshop, 2020, 6.5),
+            new CvItem("test5", Groups.MainGroupType.Design, Groups.SubGroupType.AfterEffects, 2020, 6.5),
+            new CvItem("test6", Groups.MainGroupType.Design, Groups.SubGroupType.PremierePro, 2020, 6.5),
+            new CvItem("test7", Groups.MainGroupType.Design, Groups.SubGroupType.Lightroom, 2020, 8.0),
+            new CvItem("test8", Groups.MainGroupType.Miscellaneous, Groups.SubGroupType.MySql, 2020, 8.0),
         };
 
         private List<CvItem> FilteredCvItems = new List<CvItem>();
@@ -102,7 +109,6 @@ namespace HCGroupKennis
                 SelectedMainGroup = (Groups.MainGroupType)Enum.Parse(typeof(Groups.MainGroupType), MainGroupComboBox?.SelectedItem.ToString());
             if (SubGroupComboBox?.SelectedItem is not null)
                 SelectedSubGroup = (Groups.SubGroupType)Enum.Parse(typeof(Groups.SubGroupType), SubGroupComboBox?.SelectedItem.ToString());
-            Debug.WriteLine($"MainGroup: {SelectedMainGroup}, SubGroup: {SelectedSubGroup}");
             if (MainGroupComboBox is null || SubGroupComboBox is null || AllCvItems is null || FilteredCvItems is null)
                 return;
             // No filters applied
@@ -120,6 +126,27 @@ namespace HCGroupKennis
                     .Where(item => item.SubGroup == SelectedSubGroup).ToList();
             CvDataGrid.ItemsSource = FilteredCvItems;
             return;
+        }
+
+        private void YearFilter_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (YearTextBox is null || YearTextBox.Text.Equals(string.Empty) || YearTextBox.Text.Length != 4)
+            {
+                Debug.WriteLine("YearTextBox is null or empty or not 4 characters long!");
+                return;
+            }
+            Debug.WriteLine("YearTextBox is VALID");
+        }
+
+        private void YearTextBox_PreviewTextInput(object? sender, TextCompositionEventArgs e)
+        {
+            if (e.Text is null || !e.Text.All(char.IsDigit))
+                e.Handled = true;
+        }
+
+        private void YearTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = e.Key == Key.Space ? true : false;
         }
     }
 }

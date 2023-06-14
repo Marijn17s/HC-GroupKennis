@@ -23,17 +23,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center">
-                    <Label Content="Hoofdgroep" Foreground="White" HorizontalContentAlignment="Center"/>
+                    <Label Content="Filter op hoofdgroep" Foreground="White" HorizontalContentAlignment="Center"/>
                     <ComboBox Name="MainGroupComboBox" SelectedIndex="-1" DropDownClosed="GroupsFilter_DropDownClosed" VerticalAlignment="Center" MaxWidth="300"/>
                     <Button Name="ResetMainGroupFilter" Click="ResetMainGroupFilter_OnClick" Content="Reset" Margin="0 2 0 0" MaxWidth="150" MinHeight="25"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
-                    <Label Content="Subgroep" Foreground="White" HorizontalContentAlignment="Center"/>
+                    <Label Content="Filter op subgroep" Foreground="White" HorizontalContentAlignment="Center"/>
                     <ComboBox Name="SubGroupComboBox" SelectedIndex="-1" DropDownClosed="GroupsFilter_DropDownClosed" VerticalAlignment="Center" MaxWidth="300"/>
                     <Button Name="ResetSubGroupFilter" Click="ResetSubGroupFilter_OnClick" Content="Reset" Margin="0 2 0 0" MaxWidth="150" MinHeight="25"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Center">
+                    <Label Content="Filter op jaar" Foreground="White" HorizontalContentAlignment="Center"/>
+                    <TextBox Grid.Row="2" Name="YearTextBox" PreviewTextInput="YearTextBox_PreviewTextInput" PreviewKeyDown="YearTextBox_PreviewKeyDown" TextChanged="YearFilter_OnTextChanged" MaxLength="4" VerticalAlignment="Center" MaxWidth="300" MinHeight="25" Margin="0 2 0 0"/>
                 </StackPanel>
             </Grid>
         </Grid>
@@ -50,10 +55,10 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Header="Naam" Width="*"/>
-                <DataGridTextColumn Binding="{Binding MainGroup}" Header="Hoofdgroep" Width="*"/>
-                <DataGridTextColumn Binding="{Binding SubGroup}" Header="Subgroep" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Year}" Header="Jaar" Width="0.5*"/>
-                <DataGridTextColumn Binding="{Binding Rating}" Header="Rating" Width="0.5*"/>
+                <DataGridTextColumn Binding="{Binding MainGroup}" IsReadOnly="True" Header="Hoofdgroep" Width="*"/>
+                <DataGridTextColumn Binding="{Binding SubGroup}" IsReadOnly="True" Header="Subgroep" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Year}" IsReadOnly="True" Header="Jaar" Width="0.5*"/>
+                <DataGridTextColumn Binding="{Binding Rating}" IsReadOnly="True" Header="Rating" Width="0.5*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
