@@ -136,6 +136,7 @@ namespace HCGroupKennis
             // Make sure the textbox is not empty and has 4 characters.
             if (YearTextBox is null || YearTextBox.Text.Equals(string.Empty) || YearTextBox.Text.Length != 4)
                 return;
+            ApplyFilters();
         }
 
         private void YearTextBox_PreviewTextInput(object? sender, TextCompositionEventArgs e)
@@ -148,6 +149,14 @@ namespace HCGroupKennis
         {
             // Make sure there are no spaces in the textbox.
             e.Handled = e.Key == Key.Space;
+        }
+
+        private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+
+            if (e.Command == ApplicationCommands.Paste) {
+                e.CanExecute = false;
+                e.Handled = true;
+            }
         }
     }
 }
