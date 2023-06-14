@@ -14,11 +14,11 @@ namespace HCGroupKennis.Classes
 
         public Groups.SubGroupType SubGroup { get; init; }
 
-        public DateTime Year { get; init; }
+        public int Year { get; init; }
 
         public double Rating { get; init; }
 
-        public CvItem(string name, Groups.MainGroupType mainGroup, Groups.SubGroupType subGroup, DateTime year, double rating)
+        public CvItem(string name, Groups.MainGroupType mainGroup, Groups.SubGroupType subGroup, int year, double rating)
         {
             // Rating moet tussen de 1 en de 10 sterren liggen
             if (rating < 1 || rating > 10)

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,49 +20,105 @@ using HCGroupKennis.Classes;
 
 namespace HCGroupKennis
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private Groups.MainGroupType SelectedMainGroup;
-        private Groups.SubGroupType SelectedSubGroup;
-        private static CvItem test = new("testNaam", Groups.MainGroupType.Miscellaneous, Groups.SubGroupType.Miscellaneous, new DateTime(2020), 8.5);
-        private readonly List<CvItem> AllCvItems = new List<CvItem>()
-        {
-            test
-        };
-        private List<CvItem> FilteredCvItems = new List<CvItem>();
-
         public MainWindow()
         {
             InitializeComponent();
+
+            // Fill the comboboxes with the filter options.
             MainGroupComboBox.ItemsSource = Enum.GetValues(typeof(Groups.MainGroupType));
             SubGroupComboBox.ItemsSource = Enum.GetValues(typeof(Groups.SubGroupType));
+            
+            // Only fill the datagrid with all items for the first time.
+            CvDataGrid.ItemsSource = AllCvItems;
         }
 
-        private void GroupsFilter_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
         {
-            //FilteredCvItems = AllCvItems;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        #endregion
+
+        #region Fields
+
+        private readonly List<CvItem> AllCvItems = new List<CvItem>()
+        {
+            new CvItem("testNaam", Groups.MainGroupType.Backend, Groups.SubGroupType.Miscellaneous, 2020, 8.5),
+        };
+
+        private List<CvItem> FilteredCvItems = new List<CvItem>();
+
+        #endregion
+
+        #region Properties
+        
+        private Groups.MainGroupType selectedMainGroup;
+        internal Groups.MainGroupType SelectedMainGroup {
+            get => selectedMainGroup;
+            set
+            {
+                selectedMainGroup = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Groups.SubGroupType selectedSubGroup;
+        internal Groups.SubGroupType SelectedSubGroup {
+            get => selectedSubGroup;
+            set
+            {
+                selectedSubGroup = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        private void GroupsFilter_DropDownClosed(object? sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void ResetMainGroupFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainGroupComboBox.SelectedIndex = -1;
+            ApplyFilters();
+        }
+
+        private void ResetSubGroupFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            SubGroupComboBox.SelectedIndex = -1;
+            ApplyFilters();
+        }
+
+        private void ApplyFilters()
+        {
+            if (MainGroupComboBox?.SelectedItem is not null)
+                SelectedMainGroup = (Groups.MainGroupType)Enum.Parse(typeof(Groups.MainGroupType), MainGroupComboBox?.SelectedItem.ToString());
+            if (SubGroupComboBox?.SelectedItem is not null)
+                SelectedSubGroup = (Groups.SubGroupType)Enum.Parse(typeof(Groups.SubGroupType), SubGroupComboBox?.SelectedItem.ToString());
+            Debug.WriteLine($"MainGroup: {SelectedMainGroup}, SubGroup: {SelectedSubGroup}");
             if (MainGroupComboBox is null || SubGroupComboBox is null || AllCvItems is null || FilteredCvItems is null)
                 return;
+            // No filters applied
+            if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex == -1)
+                FilteredCvItems = AllCvItems;
             // Only MainGroup filter applied
-            if (MainGroupComboBox.SelectedIndex != 0 && SubGroupComboBox.SelectedIndex == 0)
-            {
+            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex == -1)
                 FilteredCvItems = AllCvItems.Where(item => item.MainGroup == SelectedMainGroup).ToList();
-                return;
-            }
             // Only SubGroup filter applied
-            else if (MainGroupComboBox.SelectedIndex == 0 && SubGroupComboBox.SelectedIndex != 0)
-            {
+            else if (MainGroupComboBox.SelectedIndex == -1 && SubGroupComboBox.SelectedIndex != -1)
                 FilteredCvItems = AllCvItems.Where(item => item.SubGroup == SelectedSubGroup).ToList();
-                return;
-            }
             // Both filters applied
-            else if (MainGroupComboBox.SelectedIndex != 0 && SubGroupComboBox.SelectedIndex != 0)
-            {
+            else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex != -1)
                 FilteredCvItems = AllCvItems.Where(item => item.MainGroup == SelectedMainGroup)
                     .Where(item => item.SubGroup == SelectedSubGroup).ToList();
-                return;
-            }
-            // No filters applied
+            CvDataGrid.ItemsSource = FilteredCvItems;
             return;
         }
     }

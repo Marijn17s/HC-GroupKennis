@@ -19,7 +19,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -27,16 +27,18 @@
 
                 <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center">
                     <Label Content="Hoofdgroep" Foreground="White" HorizontalContentAlignment="Center"/>
-                    <ComboBox Name="MainGroupComboBox" ItemsSource="{Binding MainGroups}" SelectedItem="{Binding SelectedMainGroup}" SelectedIndex="0" SelectionChanged="GroupsFilter_OnSelectionChanged" VerticalAlignment="Center" MaxWidth="300"/>
+                    <ComboBox Name="MainGroupComboBox" SelectedIndex="-1" DropDownClosed="GroupsFilter_DropDownClosed" VerticalAlignment="Center" MaxWidth="300"/>
+                    <Button Name="ResetMainGroupFilter" Click="ResetMainGroupFilter_OnClick" Content="Reset" Margin="0 2 0 0" MaxWidth="150" MinHeight="25"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center">
                     <Label Content="Subgroep" Foreground="White" HorizontalContentAlignment="Center"/>
-                    <ComboBox Name="SubGroupComboBox" ItemsSource="{Binding SubGroups}" SelectedItem="{Binding SelectedSubGroup}" SelectedIndex="0" SelectionChanged="GroupsFilter_OnSelectionChanged" VerticalAlignment="Center" MaxWidth="300"/>
+                    <ComboBox Name="SubGroupComboBox" SelectedIndex="-1" DropDownClosed="GroupsFilter_DropDownClosed" VerticalAlignment="Center" MaxWidth="300"/>
+                    <Button Name="ResetSubGroupFilter" Click="ResetSubGroupFilter_OnClick" Content="Reset" Margin="0 2 0 0" MaxWidth="150" MinHeight="25"/>
                 </StackPanel>
             </Grid>
         </Grid>
 
-        <DataGrid Grid.Column="1" Name="CvDataGrid" ItemsSource="{Binding FilteredCvItems}" RowBackground="DarkSlateGray" Foreground="White" Background="Transparent" FontFamily="Consolas" FontSize="13" AutoGenerateColumns="False">
+        <DataGrid Grid.Column="1" Name="CvDataGrid" ItemsSource="{Binding FilteredCvItems}" AutoGenerateColumns="False" RowBackground="DarkSlateGray" Foreground="White" Background="Transparent" FontFamily="Consolas" FontSize="13">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="DarkSlateGray"/>
@@ -50,7 +52,7 @@
                 <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Header="Naam" Width="*"/>
                 <DataGridTextColumn Binding="{Binding MainGroup}" Header="Hoofdgroep" Width="*"/>
                 <DataGridTextColumn Binding="{Binding SubGroup}" Header="Subgroep" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Year}" Header="Jaar" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Year}" Header="Jaar" Width="0.5*"/>
                 <DataGridTextColumn Binding="{Binding Rating}" Header="Rating" Width="0.5*"/>
             </DataGrid.Columns>
         </DataGrid>
