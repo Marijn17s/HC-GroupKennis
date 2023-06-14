@@ -124,29 +124,30 @@ namespace HCGroupKennis
             else if (MainGroupComboBox.SelectedIndex != -1 && SubGroupComboBox.SelectedIndex != -1)
                 FilteredCvItems = AllCvItems.Where(item => item.MainGroup == SelectedMainGroup)
                     .Where(item => item.SubGroup == SelectedSubGroup).ToList();
+
+            // Fill the DataGrid with only the filtered items.
             CvDataGrid.ItemsSource = FilteredCvItems;
+
             return;
         }
 
         private void YearFilter_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            // Make sure the textbox is not empty and has 4 characters.
             if (YearTextBox is null || YearTextBox.Text.Equals(string.Empty) || YearTextBox.Text.Length != 4)
-            {
-                Debug.WriteLine("YearTextBox is null or empty or not 4 characters long!");
                 return;
-            }
-            Debug.WriteLine("YearTextBox is VALID");
         }
 
         private void YearTextBox_PreviewTextInput(object? sender, TextCompositionEventArgs e)
         {
-            if (e.Text is null || !e.Text.All(char.IsDigit))
-                e.Handled = true;
+            // Make sure there are only numbers in the textbox.
+            e.Handled = e.Text is null || !e.Text.All(char.IsDigit);
         }
 
         private void YearTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            e.Handled = e.Key == Key.Space ? true : false;
+            // Make sure there are no spaces in the textbox.
+            e.Handled = e.Key == Key.Space;
         }
     }
 }
