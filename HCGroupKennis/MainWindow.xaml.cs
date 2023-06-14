@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using HCGroupKennis.Classes;
 
 namespace HCGroupKennis
@@ -110,9 +100,9 @@ namespace HCGroupKennis
         private void ApplyFilters()
         {
             if (MainGroupComboBox?.SelectedItem is not null)
-                SelectedMainGroup = (Groups.MainGroupType)Enum.Parse(typeof(Groups.MainGroupType), MainGroupComboBox?.SelectedItem.ToString());
+                SelectedMainGroup = (Groups.MainGroupType) Enum.Parse(typeof(Groups.MainGroupType), MainGroupComboBox?.SelectedItem.ToString());
             if (SubGroupComboBox?.SelectedItem is not null)
-                SelectedSubGroup = (Groups.SubGroupType)Enum.Parse(typeof(Groups.SubGroupType), SubGroupComboBox?.SelectedItem.ToString());
+                SelectedSubGroup = (Groups.SubGroupType) Enum.Parse(typeof(Groups.SubGroupType), SubGroupComboBox?.SelectedItem.ToString());
             if (MainGroupComboBox is null || SubGroupComboBox is null || AllCvItems is null || FilteredCvItems is null)
                 return;
 
@@ -205,7 +195,9 @@ namespace HCGroupKennis
         private void YearTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             // Make sure there are no spaces in the textbox.
-            e.Handled = e.Key == Key.Space;
+            e.Handled = e.Key == Key.Space ? true : false;
+            // Above code can be simplified to:
+            //e.Handled = e.Key == Key.Space;
         }
 
         private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
