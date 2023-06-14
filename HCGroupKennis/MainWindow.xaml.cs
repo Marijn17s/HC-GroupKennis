@@ -48,19 +48,41 @@ namespace HCGroupKennis
 
         private readonly List<CvItem> AllCvItems = new List<CvItem>()
         {
-            new CvItem("test1", Groups.MainGroupType.Backend, Groups.SubGroupType.Miscellaneous, 2020, 8.5),
-            new CvItem("test1(2)", Groups.MainGroupType.Backend, Groups.SubGroupType.Miscellaneous, 2019, 8.5),
-            new CvItem("test2", Groups.MainGroupType.Frontend, Groups.SubGroupType.CSharp, 2020, 7.5),
-            new CvItem("test3", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2020, 9.5),
-            new CvItem("test4", Groups.MainGroupType.Design, Groups.SubGroupType.Photoshop, 2020, 6.5),
-            new CvItem("test5", Groups.MainGroupType.Design, Groups.SubGroupType.AfterEffects, 2020, 6.5),
-            new CvItem("test6", Groups.MainGroupType.Design, Groups.SubGroupType.PremierePro, 2020, 6.5),
-            new CvItem("test7", Groups.MainGroupType.Design, Groups.SubGroupType.Lightroom, 2020, 8.0),
-            new CvItem("test8", Groups.MainGroupType.Miscellaneous, Groups.SubGroupType.MySql, 2020, 8.0),
-            new CvItem("test9", Groups.MainGroupType.Frontend, Groups.SubGroupType.Css, 2020, 8.0),
-            new CvItem("test10", Groups.MainGroupType.Frontend, Groups.SubGroupType.Javascript, 2019, 8.0),
-            new CvItem("test11", Groups.MainGroupType.Frontend, Groups.SubGroupType.Html, 2019, 8.0),
-            new CvItem("test10", Groups.MainGroupType.Frontend, Groups.SubGroupType.Php, 2020, 8.0),
+            new CvItem("Zelfstandig gestart met plugins maken in Lua", Groups.MainGroupType.Fullstack, Groups.SubGroupType.Overig, 2018),
+            new CvItem("Geëxperimenteerd met Adobe Photoshop", Groups.MainGroupType.Design, Groups.SubGroupType.Photoshop, 2019),
+            new CvItem("Zelfstandig gestart met C# in WinForms", Groups.MainGroupType.Fullstack, Groups.SubGroupType.CSharp, 2020),
+            new CvItem("Zelfstandig gestart met Adobe After Effects", Groups.MainGroupType.Design, Groups.SubGroupType.AfterEffects, 2020),
+            new CvItem("Begonnen met eigen project in C# WinForms", Groups.MainGroupType.Fullstack, Groups.SubGroupType.CSharp, 2021),
+            new CvItem("Eigen website opgezet", Groups.MainGroupType.Fullstack, Groups.SubGroupType.Web, 2021),
+            new CvItem("Geëperimenteerd met Adobe Premiere Pro", Groups.MainGroupType.Design, Groups.SubGroupType.PremierePro, 2021),
+            new CvItem("Op school gestart met HTML, CSS, Javascript", Groups.MainGroupType.Frontend, Groups.SubGroupType.Web, 2021),
+            new CvItem("Op school gestart met basis C# in WPF", Groups.MainGroupType.Frontend, Groups.SubGroupType.CSharp, 2021),
+            new CvItem("Geleerd responsive designs te maken in WPF", Groups.MainGroupType.Frontend, Groups.SubGroupType.CSharp, 2021),
+            new CvItem("Geleerd responsive designs te maken in HTML, CSS", Groups.MainGroupType.Frontend, Groups.SubGroupType.Web, 2021),
+            new CvItem("Op school gestart met MySQL", Groups.MainGroupType.Overig, Groups.SubGroupType.DatabaseBeheer, 2021),
+            new CvItem("Op school gestart met PHP", Groups.MainGroupType.Backend, Groups.SubGroupType.Php, 2022),
+            new CvItem("Op school gestart met CRUD applicaties in C#", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("Op school gestart met CRUD applicaties in PHP", Groups.MainGroupType.Backend, Groups.SubGroupType.Php, 2022),
+            new CvItem("Op school basis van Linux geleerd", Groups.MainGroupType.Overig, Groups.SubGroupType.Overig, 2022),
+            new CvItem("Op school geleerd Unit tests te maken in C#", Groups.MainGroupType.Overig, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("Op school geleerd Unit tests te maken in Laravel", Groups.MainGroupType.Overig, Groups.SubGroupType.Laravel, 2022),
+            new CvItem("Op school geleerd Feature tests te maken in Laravel", Groups.MainGroupType.Overig, Groups.SubGroupType.Laravel, 2022),
+            new CvItem("Conditional operators in C#", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("DLL's importeren en gebruiken in C#", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("Inheritance in C#", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("Polymorfisme in C#", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("Geëxperimenteerd met C++", Groups.MainGroupType.Backend, Groups.SubGroupType.Overig, 2022),
+            new CvItem("Eigen project update geautomatiseerd tijdens dat de applicatie draait", Groups.MainGroupType.Backend, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("Op school gestart met Laravel Framework (PHP)", Groups.MainGroupType.Fullstack, Groups.SubGroupType.CSharp, 2022),
+            new CvItem("Op school gestart met API's maken in Laravel", Groups.MainGroupType.Backend, Groups.SubGroupType.Laravel, 2022),
+            new CvItem("Op school gestart met CRUD door middel van een API in Laravel", Groups.MainGroupType.Backend, Groups.SubGroupType.Laravel, 2022),
+            new CvItem("Op school frontend gemaakt om API te leren gebruiken", Groups.MainGroupType.Frontend, Groups.SubGroupType.Web, 2023),
+            new CvItem("Op school geleerd API semi-live te zetten op virtuele machine", Groups.MainGroupType.Frontend, Groups.SubGroupType.Web, 2023),
+            new CvItem("Op school gestart met beschermde API's in Laravel", Groups.MainGroupType.Backend, Groups.SubGroupType.Laravel, 2023),
+            new CvItem("Beschermde API gemaakt voor eigen website in Laravel", Groups.MainGroupType.Backend, Groups.SubGroupType.Laravel, 2023),
+            new CvItem("Op school gestart met het Flutter Framework", Groups.MainGroupType.Fullstack, Groups.SubGroupType.Flutter, 2023),
+            new CvItem("Op school gestart met Wordpress", Groups.MainGroupType.Fullstack, Groups.SubGroupType.Web, 2023),
+            new CvItem("Zelfstandig gestart met Adobe Lightroom", Groups.MainGroupType.Design, Groups.SubGroupType.Lightroom, 2023),
         };
 
         private List<CvItem> FilteredCvItems = new List<CvItem>();
@@ -84,23 +106,6 @@ namespace HCGroupKennis
         }
 
         #endregion
-
-        private void GroupsFilter_DropDownClosed(object? sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void ResetMainGroupFilter_OnClick(object sender, RoutedEventArgs e)
-        {
-            MainGroupComboBox.SelectedIndex = -1;
-            ApplyFilters();
-        }
-
-        private void ResetSubGroupFilter_OnClick(object sender, RoutedEventArgs e)
-        {
-            SubGroupComboBox.SelectedIndex = -1;
-            ApplyFilters();
-        }
 
         private void ApplyFilters()
         {
@@ -161,6 +166,27 @@ namespace HCGroupKennis
             return;
         }
 
+        #region EventHandlers
+
+        private void GroupsFilter_DropDownClosed(object? sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void ResetMainGroupFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainGroupComboBox.SelectedIndex = -1;
+            ApplyFilters();
+        }
+
+        private void ResetSubGroupFilter_OnClick(object sender, RoutedEventArgs e)
+        {
+            SubGroupComboBox.SelectedIndex = -1;
+            ApplyFilters();
+        }
+
+        #region Validation
+
         private void YearFilter_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             // Make sure the textbox is not empty and has 4 characters.
@@ -191,6 +217,8 @@ namespace HCGroupKennis
             }
         }
 
+        #endregion
+
         private void ResetYearFilter_OnClick(object sender, RoutedEventArgs e)
         {
             // Reset all filters by year.
@@ -198,5 +226,7 @@ namespace HCGroupKennis
             YearFilter = 0;
             ApplyFilters();
         }
+
+        #endregion
     }
 }

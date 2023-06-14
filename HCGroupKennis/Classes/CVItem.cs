@@ -16,18 +16,12 @@ namespace HCGroupKennis.Classes
 
         public int Year { get; init; }
 
-        public double Rating { get; init; }
-
-        public CvItem(string name, Groups.MainGroupType mainGroup, Groups.SubGroupType subGroup, int year, double rating)
+        public CvItem(string name, Groups.MainGroupType mainGroup, Groups.SubGroupType subGroup, int year)
         {
-            // Rating moet tussen de 1 en de 10 sterren liggen
-            if (rating < 1 || rating > 10)
-                throw new ArgumentOutOfRangeException(nameof(rating), "Rating moet tussen de 1 en de 10 liggen");
             Name = name;
             MainGroup = mainGroup;
             SubGroup = subGroup;
             Year = year;
-            Rating = rating;
         }
     }
 }

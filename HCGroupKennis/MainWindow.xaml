@@ -55,11 +55,10 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Header="Naam" Width="*"/>
-                <DataGridTextColumn Binding="{Binding MainGroup}" IsReadOnly="True" Header="Hoofdgroep" Width="*"/>
-                <DataGridTextColumn Binding="{Binding SubGroup}" IsReadOnly="True" Header="Subgroep" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Header="Naam" Width="2*"/>
+                <DataGridTextColumn Binding="{Binding MainGroup}" IsReadOnly="True" Header="Hoofdgroep" Width="0.9*"/>
+                <DataGridTextColumn Binding="{Binding SubGroup}" IsReadOnly="True" Header="Subgroep" Width="0.9*"/>
                 <DataGridTextColumn Binding="{Binding Year}" IsReadOnly="True" Header="Jaar" Width="0.5*"/>
-                <DataGridTextColumn Binding="{Binding Rating}" IsReadOnly="True" Header="Rating" Width="0.5*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

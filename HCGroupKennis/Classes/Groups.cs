@@ -10,10 +10,11 @@ namespace HCGroupKennis.Classes
     {
         internal enum MainGroupType
         {
-            Backend,
             Frontend,
+            Backend,
+            Fullstack,
             Design,
-            Miscellaneous
+            Overig
         }
 
         internal enum SubGroupType
@@ -22,6 +23,7 @@ namespace HCGroupKennis.Classes
             Lightroom,
             AfterEffects,
             PremierePro,
+            Web,
             Html,
             Css,
             Javascript,
@@ -29,8 +31,8 @@ namespace HCGroupKennis.Classes
             Laravel,
             CSharp,
             Flutter,
-            MySql,
-            Miscellaneous
+            DatabaseBeheer,
+            Overig
         }
     }
 }
