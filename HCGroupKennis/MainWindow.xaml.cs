@@ -153,6 +153,7 @@ namespace HCGroupKennis
 
         private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
+            // Disable pasting invalid characters into the textbox.
             if (e.Command == ApplicationCommands.Paste) {
                 e.CanExecute = false;
                 e.Handled = true;
