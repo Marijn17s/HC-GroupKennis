@@ -151,8 +151,8 @@ namespace HCGroupKennis
             e.Handled = e.Key == Key.Space;
         }
 
-        private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e) {
-
+        private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             if (e.Command == ApplicationCommands.Paste) {
                 e.CanExecute = false;
                 e.Handled = true;
